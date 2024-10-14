@@ -1,0 +1,8 @@
+#welcomeText {
+    -fx-text-fill: #b8bd36;
+}
+
+.my-VBox {
+    -fx-background-color: #cf7555;
+    -fx-padding: 20;
+}
