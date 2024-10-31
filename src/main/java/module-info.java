@@ -5,6 +5,9 @@ module com.example.demojavafxgradle {
     requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
 
-    opens com.example.demojavafxgradle to javafx.fxml;
-    exports com.example.demojavafxgradle;
+    requires org.mongodb.driver.sync.client;
+    requires org.mongodb.bson;
+
+    opens com.orders.vantinh to javafx.fxml;
+    exports com.orders.vantinh;
 }

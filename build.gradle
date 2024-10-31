@@ -17,16 +17,29 @@ ext {
     junitVersion = '5.10.2'
 }
 
-sourceCompatibility = '22'
-targetCompatibility = '22'
+sourceCompatibility = '23'
+targetCompatibility = '23'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+// Test code of ChatGPT
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)  // Set JDK 23
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.release = 23  // Ensure JDK 23 is used for compilation
+}
+// Test code of ChatGPT
+
 application {
     mainModule = 'com.example.demojavafxgradle'
-    mainClass = 'com.example.demojavafxgradle.HelloApplication'
+    mainClass = 'com.example.demojavafxgradle.App'
 }
 
 javafx {
@@ -36,6 +49,7 @@ javafx {
 
 dependencies {
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
+    implementation 'org.mongodb:mongodb-driver-sync:5.2.0'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
