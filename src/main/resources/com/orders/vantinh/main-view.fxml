@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.orders.vantinh.MainController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.orders.vantinh.controllers.Main">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="304.0">
+      <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
             <BorderPane layoutX="-6.0" layoutY="-14.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="btnProducts" layoutX="32.0" layoutY="234.0" mnemonicParsing="false" onAction="#switchAnchorPane" prefHeight="57.0" prefWidth="117.0" style="-fx-background-color: #12a189;" text="Products">
+                        <Button fx:id="btnProducts" layoutX="32.0" layoutY="234.0" mnemonicParsing="false" onAction="#switchToProducts" prefHeight="57.0" prefWidth="117.0" style="-fx-background-color: #12a189;" text="Products">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
@@ -26,17 +21,17 @@
                               <Font name="Arial" size="13.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnCustomers" layoutX="34.0" layoutY="331.0" mnemonicParsing="false" onAction="#switchAnchorPane" prefHeight="57.0" prefWidth="115.0" style="-fx-background-color: #12a189;" text="Customer">
+                        <Button fx:id="btnCustomers" layoutX="34.0" layoutY="331.0" mnemonicParsing="false" onAction="#switchToCustomers" prefHeight="57.0" prefWidth="115.0" style="-fx-background-color: #12a189;" text="Customer">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="btnSettings" layoutX="33.0" layoutY="433.0" mnemonicParsing="false" onAction="#switchAnchorPane" prefHeight="57.0" prefWidth="116.0" style="-fx-background-color: #12a189;" text="Settings">
+                        <Button fx:id="btnSettings" layoutX="33.0" layoutY="433.0" mnemonicParsing="false" onAction="#switchToSettings" prefHeight="57.0" prefWidth="116.0" style="-fx-background-color: #12a189;" text="Settings">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="btnOrders" layoutX="31.0" layoutY="116.0" mnemonicParsing="false" onAction="#switchAnchorPane" prefHeight="59.0" prefWidth="119.0" style="-fx-background-color: #12a120;" text="Orders" textFill="WHITE">
+                        <Button fx:id="btnOrders" layoutX="31.0" layoutY="116.0" mnemonicParsing="false" onAction="#switchToOrders" prefHeight="59.0" prefWidth="119.0" style="-fx-background-color: #12a120;" text="Orders" textFill="WHITE">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
@@ -49,7 +44,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Button layoutX="42.0" layoutY="536.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="107.0" style="-fx-background-color: red;" text="Log out" textFill="WHITE">
+                        <Button fx:id="btnLogout" layoutX="42.0" layoutY="536.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="107.0" style="-fx-background-color: red;" text="Log out" textFill="WHITE">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -61,44 +56,19 @@
                   </AnchorPane>
                </left>
                <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <AnchorPane fx:id="fxAnchor" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER">
                      <children>
                         <AnchorPane fx:id="anchorOrders" layoutX="273.0" layoutY="123.0" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Text layoutX="244.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome to  order table" />
-                              <TableView fx:id="orderTableView" layoutX="21.0" layoutY="76.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="561.0">
-                                <columns>
-                                  <TableColumn fx:id="orderID" prefWidth="28.0" text="ID" />
-                                    <TableColumn fx:id="orderNumber" prefWidth="28.0" text="Oder Number" />
-                                    <TableColumn fx:id="orderDate" prefWidth="28.0" text="Oder Date" />
-                                    <TableColumn fx:id="customerID" prefWidth="198.0" text="Customer" />
-                                    <TableColumn fx:id="orderAmount" prefWidth="75.0" text="Amount" />
-                                    <TableColumn fx:id="orderPayment" prefWidth="75.0" text="Payment" />
-                                    <TableColumn fx:id="orderStatus" prefWidth="28.0" text="Oder Status" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <Button fx:id="btnNewOrder" layoutX="194.0" layoutY="503.0" mnemonicParsing="false" onAction="#ActionNewOrder" text="Add new Order" />
-                              <Button fx:id="btnEditOrder" layoutX="351.0" layoutY="503.0" mnemonicParsing="false" onAction="#ActionEditOrder" text="Edit Order" />
-                              <Button fx:id="btnRemoveOrder" layoutX="462.0" layoutY="503.0" mnemonicParsing="false" onAction="#ActionRemoveOrder" text="Remove Order" />
-                              <Button fx:id="btnOrderLoaddata" layoutX="55.0" layoutY="503.0" mnemonicParsing="false" onAction="#ActionLoadOrders" text="Load Data" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="anchorProducts" layoutX="10.0" layoutY="10.0" prefHeight="610.0" prefWidth="610.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text layoutX="250.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome to form 2" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="anchorCustomers" layoutX="20.0" layoutY="20.0" prefHeight="620.0" prefWidth="620.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="welcome to form 3" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="anchorSettings" layoutX="30.0" layoutY="30.0" prefHeight="630.0" prefWidth="630.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text layoutX="212.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="welcome to form 4" wrappingWidth="101.0927734375" />
+                              <Text layoutX="172.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guten Morgen">
+                                 <font>
+                                    <Font size="50.0" />
+                                 </font></Text>
+                              <Text layoutX="155.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bitte waehlen Sie eine Funktion">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </AnchorPane>
                      </children>

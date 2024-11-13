@@ -17,8 +17,8 @@ ext {
     junitVersion = '5.10.2'
 }
 
-sourceCompatibility = '23'
-targetCompatibility = '23'
+sourceCompatibility = '21'
+targetCompatibility = '21'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -27,19 +27,19 @@ tasks.withType(JavaCompile) {
 // Test code of ChatGPT
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)  // Set JDK 23
+        languageVersion = JavaLanguageVersion.of(21)  // Set JDK 23
     }
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    options.release = 23  // Ensure JDK 23 is used for compilation
+    options.release = 21  // Ensure JDK 23 is used for compilation
 }
 // Test code of ChatGPT
 
 application {
-    mainModule = 'com.example.demojavafxgradle'
-    mainClass = 'com.example.demojavafxgradle.App'
+    mainModule = 'com.orders.vantinh'
+    mainClass = 'com.orders.vantinh.App'
 }
 
 javafx {
@@ -50,6 +50,13 @@ javafx {
 dependencies {
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
     implementation 'org.mongodb:mongodb-driver-sync:5.2.0'
+
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
+    implementation group: 'org.apache.poi', name: 'poi', version: '5.3.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.3.0'   // For `.xls` files (Excel 97-2003)
+
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
+    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.16'
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

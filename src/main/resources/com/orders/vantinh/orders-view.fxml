@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.orders.vantinh.controllers.Orders">
+   <children>
+      <Label layoutX="308.0" layoutY="24.0" text="Orders">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+
+       <ToolBar fx:id="fxOrderToolbar" layoutX="14.0" layoutY="61.0" prefHeight="70.0" prefWidth="563.0" AnchorPane.topAnchor="61.0">
+           <items>
+               <Button fx:id="btnComeBack" mnemonicParsing="false" onAction="#ActionBack" text="Back" />
+               <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#ActionLoad" text="Load Data" />
+               <Button fx:id="btnNew" mnemonicParsing="false" onAction="#ActionNew" text="Add New" />
+               <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#ActionEdit" text="Edit" />
+               <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#ActionRemove" text="Remove" />
+           </items>
+       </ToolBar>
+
+       <TableView fx:id="tableView" layoutX="14.0" layoutY="157.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="561.0">
+           <columns>
+               <TableColumn fx:id="orderID" prefWidth="28.0" text="ID" />
+               <TableColumn fx:id="orderDate" prefWidth="28.0" text="Oder Date" />
+               <TableColumn fx:id="customerID" prefWidth="198.0" text="Customer" />
+               <TableColumn fx:id="orderAmount" prefWidth="75.0" text="Amount" />
+               <TableColumn fx:id="orderPayment" prefWidth="75.0" text="Payment" />
+               <TableColumn fx:id="orderStatus" prefWidth="28.0" text="Oder Status" />
+           </columns>
+           <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+           </columnResizePolicy>
+       </TableView>
+
+   </children>
+</AnchorPane>

@@ -1,0 +1,53 @@
+* {
+    -preferred-background-color: #3B3F41;
+    -preferred-background-color-light: #3E4345;
+    -preferred-foreground-color: #BBBBBB;
+    -preferred-border-color: #212021;
+    -preferred-border-color-light: #212021;
+    -required-border-color: #b40303;
+
+    -botiss-background-color: #f3ae17;
+
+    -botiss-fill-color: #3E4345;
+    -botiss-text-color: #3E4345;
+}
+
+#welcomeText {
+    -fx-text-fill: -botiss-fill-color;
+}
+
+.my-VBox {
+    -fx-background-color: -preferred-background-color;
+    -fx-padding: 5px;
+}
+
+#tableView .column-header {
+    -fx-background-color: -botiss-background-color;
+    -fx-font-size: 30px;
+}
+
+#tableView .column-header .label {
+    -fx-text-fill: -botiss-text-color;
+    -fx-font-size: 20px;
+}
+
+.label {
+    -fx-font-size: 15px;
+}
+
+.button{
+    -fx-padding: 15px;
+}
+
+.toolbar{
+    -fx-margin-bottom: 100px;
+}
+
+.table-row-cell {
+    -fx-padding: 10px;               /* Row padding */
+    -fx-font-size: 14px;             /* Font size for row text */
+}
+
+.table-view .table-cell{
+    -fx-alignment: CENTER;
+}

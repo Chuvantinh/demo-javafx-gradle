@@ -47,7 +47,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUsername" layoutX="257.0" layoutY="222.0" prefHeight="27.0" prefWidth="199.0" promptText="username" />
+            <TextField fx:id="txtUsername" layoutX="257.0" layoutY="222.0" prefHeight="27.0" prefWidth="199.0" promptText="username"/>
             <Label layoutX="153.0" layoutY="157.0" text="Welcome to botiss medica AG ">
                <font>
                   <Font size="24.0" />
@@ -58,7 +58,7 @@
                   <Font size="28.0" />
                </font>
             </Button>
-            <PasswordField fx:id="txtPassword" layoutX="257.0" layoutY="260.0" prefHeight="27.0" prefWidth="199.0" promptText="password" />
+            <PasswordField fx:id="txtPassword" layoutX="257.0" layoutY="260.0" prefHeight="27.0" prefWidth="199.0" promptText="password"/>
          </children>
       </AnchorPane>
    </center>

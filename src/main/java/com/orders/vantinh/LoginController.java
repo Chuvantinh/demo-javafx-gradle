@@ -1,6 +1,7 @@
 package com.orders.vantinh;
 
 import com.mongodb.client.MongoCollection;
+import com.orders.vantinh.dao.DBConnection;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Alert;
@@ -19,6 +20,11 @@ public class LoginController {
 
     @FXML
     private PasswordField txtPassword;
+
+    public void initialize() {
+        txtPassword.setText("test"); // Set initial value here
+        txtUsername.setText("test");
+    }
 
     // Helper method to show alerts
     private void showAlert(String title, String message) {
