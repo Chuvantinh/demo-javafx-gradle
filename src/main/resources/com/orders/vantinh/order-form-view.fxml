@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.orders.vantinh.OrderFormView">
+   <children>
+      <Label layoutX="548.0" layoutY="14.0" text="Order Form" />
+      <Pane layoutX="293.0" layoutY="57.0" prefHeight="304.0" prefWidth="318.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="78.0" layoutY="6.0" text="Informationen" />
+            <DatePicker layoutX="118.0" layoutY="45.0" />
+            <Label layoutX="35.0" layoutY="50.0" text="Date" />
+            <Label layoutX="35.0" layoutY="108.0" text="Ship date" />
+            <DatePicker layoutX="118.0" layoutY="104.0" />
+            <Label layoutX="35.0" layoutY="171.0" text="Driver" />
+            <ComboBox layoutX="118.0" layoutY="166.0" prefHeight="26.0" prefWidth="185.0" />
+            <Label layoutX="35.0" layoutY="216.0" text="Tour" />
+            <ComboBox layoutX="118.0" layoutY="212.0" prefHeight="26.0" prefWidth="185.0" />
+            <Label layoutX="36.0" layoutY="264.0" text="Voucher" />
+            <TextField layoutX="118.0" layoutY="260.0" prefHeight="26.0" prefWidth="185.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="17.0" layoutY="57.0" prefHeight="251.0" prefWidth="252.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="70.0" layoutY="6.0" text="Customer" />
+            <ComboBox layoutX="19.0" layoutY="32.0" prefHeight="46.0" prefWidth="162.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </ComboBox>
+            <TextArea layoutX="10.0" layoutY="95.0" prefHeight="142.0" prefWidth="185.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="25.0" layoutY="373.0" prefHeight="393.0" prefWidth="1148.0" style="-fx-background-color: yellow;">
+         <children>
+            <TableView layoutY="97.0" prefHeight="251.0" prefWidth="1148.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <TextField layoutX="102.0" layoutY="46.0" prefHeight="26.0" prefWidth="382.0" />
+            <Label layoutX="21.0" layoutY="51.0" text="Search(F1)" />
+         </children>
+      </Pane>
+      <Pane layoutX="639.0" layoutY="57.0" prefHeight="304.0" prefWidth="533.0" style="-fx-background-color: green;" />
+   </children>
+</AnchorPane>
