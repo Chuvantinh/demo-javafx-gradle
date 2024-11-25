@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -12,14 +13,17 @@
          </font>
       </Label>
 
-       <ToolBar fx:id="fxOrderToolbar" layoutX="14.0" layoutY="61.0" prefHeight="70.0" prefWidth="563.0" AnchorPane.topAnchor="61.0">
+       <ToolBar fx:id="fxOrderToolbar" accessibleRole="BUTTON" layoutX="223.0" layoutY="64.0" prefHeight="70.0" prefWidth="563.0" AnchorPane.topAnchor="64.0">
            <items>
                <Button fx:id="btnComeBack" mnemonicParsing="false" onAction="#ActionBack" text="Back" />
                <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#ActionLoad" text="Load Data" />
-               <Button fx:id="btnNew" mnemonicParsing="false" onAction="#ActionNew" text="Add New" />
-               <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#ActionEdit" text="Edit" />
-               <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#ActionRemove" text="Remove" />
+               <Button fx:id="btnNew" mnemonicParsing="false" onAction="#ActionNew" style="-fx-background-color: green;" text="Add New" textFill="WHITE" />
+               <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#ActionEdit" style="-fx-background-color: yellow;" text="Edit" />
+               <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#ActionRemove" style="-fx-background-color: red;" text="Remove" textFill="WHITE" />
            </items>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
        </ToolBar>
 
        <TableView fx:id="tableView" layoutX="14.0" layoutY="157.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="561.0">
