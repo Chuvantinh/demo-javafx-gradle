@@ -132,17 +132,14 @@ public class Orders extends AbstractTableController<ModelOrders> implements Tabl
 
     @FXML
     private void ActionNew(ActionEvent event) {
-        loadView("main-view");
     }
 
     @FXML
     private void ActionEdit(ActionEvent event) {
-        loadView("main-view");
     }
 
     @FXML
     private void ActionRemove(ActionEvent event) {
-        loadView("main-view");
     }
 
     private void setupTableView() {

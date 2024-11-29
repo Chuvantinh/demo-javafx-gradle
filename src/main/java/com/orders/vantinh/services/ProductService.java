@@ -26,9 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.nio.file.Path.*;
+import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 
 public class ProductService {
-    MongoCollection<Document> productCollection = DBConnection.getCollection("javafx-order-management", "testproducts");
+    MongoCollection<Document> productCollection = DBConnection.getCollection("javafx-order-management", "products");
 
     public ModelProducts getProductbyID(MongoCollection mongoCollection, ObjectId ID){
         Document doc = (Document) mongoCollection.find(new Document("_id", ID)).first();
@@ -37,18 +38,20 @@ public class ProductService {
             List<Document> unitList = doc.getList("units", Document.class);
 
             String SKU = doc.getString("SKU");
-            String WPID = doc.getString("WPID");
+            Integer WPID = doc.getInteger("WPID");
             String productName = doc.getString("productName");
             String productNameVN = doc.getString("productNameVN");
             String productDescription = doc.getString("productDescription");
             String productShortDescription = doc.getString("productShortDescription");
             String productImageUrl = doc.getString("productImageUrl");
             double productStock = Double.parseDouble(doc.getString("productStock"));
+            int productTax = doc.getInteger("productTax");
+            String productBrand = doc.getString("productBrand");
 
             List<ModelUnit> modelUnitList = convertToModelUnits(unitList);
 
             return new ModelProducts(ID, SKU, WPID, productName, productNameVN,
-                    productDescription, productShortDescription, productImageUrl, productStock, modelUnitList);
+                    productDescription, productShortDescription, productImageUrl, productStock,productTax, productBrand, modelUnitList);
         }else {
             return null;
         }
@@ -59,10 +62,10 @@ public class ProductService {
         for(Document unit : unitsList){
             String unitType = unit.getString("unitType");
             String unitDescription = unit.getString("unitDescription");
-            Double quantityInBaseUnit  = Double.parseDouble(unit.getString("quantityInBaseUnit"));
-            Double unitRegularPrice = Double.parseDouble(unit.getString("unitRegularPrice"));
-            Double unitSalePrice = Double.parseDouble(unit.getString("unitSalePrice"));
-            Double unitBuyPrice = Double.parseDouble(unit.getString("unitBuyPrice"));
+            Double quantityInBaseUnit  = unit.get("quantityInBaseUnit") instanceof Double ? unit.getDouble("quantityInBaseUnit") : unit.getInteger("quantityInBaseUnit").doubleValue();
+            Double unitRegularPrice = unit.get("unitRegularPrice") instanceof Double ? unit.getDouble("unitRegularPrice") : unit.getInteger("unitRegularPrice").doubleValue();
+            Double unitSalePrice = unit.get("unitSalePrice") instanceof Double ? unit.getDouble("unitSalePrice") : unit.getInteger("unitSalePrice").doubleValue();
+            Double unitBuyPrice = unit.get("unitBuyPrice") instanceof Double ? unit.getDouble("unitBuyPrice") : unit.getInteger("unitBuyPrice").doubleValue();
             modelUnitList.add(new ModelUnit(unitType, unitDescription, quantityInBaseUnit, unitRegularPrice, unitSalePrice, unitBuyPrice));
         }
 
@@ -83,8 +86,12 @@ public class ProductService {
                 Row row = sheet.getRow(i);
                 if (row.getRowNum() == 0) continue;
 
-                double SKU = row.getCell(4) != null ? row.getCell(4).getNumericCellValue() : 0;
-                double WPID = row.getCell(0) != null ? row.getCell(0).getNumericCellValue() : 0;
+                String SKU = (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.NUMERIC)
+                        ? String.valueOf(row.getCell(4).getNumericCellValue())  // Handle numeric cell
+                        : (row.getCell(4) != null ? row.getCell(4).getStringCellValue() : "");  // Handle string cell or null
+
+
+                Integer WPID = row.getCell(0) != null ? (int)row.getCell(0).getNumericCellValue() : 0;
                 String productName = row.getCell(1) != null ? row.getCell(1).getStringCellValue() : "";
                 String productNameVN = row.getCell(2) != null ? row.getCell(2).getStringCellValue() : "";
                 String productDescription = row.getCell(7).getStringCellValue();
@@ -93,6 +100,9 @@ public class ProductService {
                 String productImageUrl = downloadImage(_productImageUrl, "src/main/resources/images/products");
 
                 double productStock = row.getCell(12) != null ? row.getCell(12).getNumericCellValue() : 0;
+
+                int productTax = ( String.valueOf(row.getCell(19)).equals("reduzierter-preis"))  ? 7 : 19;
+                String productBrand = String.valueOf(row.getCell(13));
 
                 if(!productName.isEmpty() && productName != null){
                     Document productDocument = new Document("SKU", SKU).
@@ -103,6 +113,8 @@ public class ProductService {
                             .append("productShortDescription", productShortDescription)
                             .append("productImageUrl", productImageUrl)
                             .append("productStock", productStock)
+                            .append("productTax", productTax)
+                            .append("productBrand", productBrand)
                             .append("units", generateUnits(row));
 
                     productList.add(productDocument);
@@ -130,24 +142,24 @@ public class ProductService {
         // Define the units for this product
         units.add(new Document("unitType", "piece")
                 .append("unitDescription", "Individual piece")
-                .append("quantityInBaseUnit", "1")
-                .append("unitRegularPrice", "2.99")
-                .append("unitSalePrice", "2.9")
-                .append("unitBuyPrice", "1"));
+                .append("quantityInBaseUnit", 1)
+                .append("unitRegularPrice", (Double)2.99)
+                .append("unitSalePrice", (Double)2.9)
+                .append("unitBuyPrice", (Double)1.00));
 
         units.add(new Document("unitType", "box")
                 .append("unitDescription", "Box of 10 pieces")
-                .append("quantityInBaseUnit", "10")
-                .append("unitRegularPrice", "29.99")
-                .append("unitSalePrice", "28")
-                .append("unitBuyPrice", "23"));
+                .append("quantityInBaseUnit", (Double)10.00)
+                .append("unitRegularPrice", (Double)29.99)
+                .append("unitSalePrice", (Double)28.00)
+                .append("unitBuyPrice", (Double)23.00));
 
         units.add(new Document("unitType", "carton")
                 .append("unitDescription", "Carton of 100 pieces")
-                .append("quantityInBaseUnit", "100")
-                .append("unitRegularPrice", "299.99")
-                .append("unitSalePrice", "290")
-                .append("unitBuyPrice", "250"));
+                .append("quantityInBaseUnit", (Double)100.00)
+                .append("unitRegularPrice", (Double)299.99)
+                .append("unitSalePrice", (Double)290.00)
+                .append("unitBuyPrice", (Double)250.00));
 
         return units;
     }
@@ -208,34 +220,37 @@ public class ProductService {
                 // Write row header
                 Row headerRow = sheet.createRow(0);
                 headerRow.createCell(0).setCellValue("SKU");
-                headerRow.createCell(1).setCellValue("WPID");
+                headerRow.createCell(1).setCellValue("WP_ID");
                 headerRow.createCell(2).setCellValue("productName");
                 headerRow.createCell(3).setCellValue("productNameVN");
                 headerRow.createCell(4).setCellValue("productDescription");
                 headerRow.createCell(5).setCellValue("productShortDescription");
                 headerRow.createCell(6).setCellValue("productImageUrl");
                 headerRow.createCell(7).setCellValue("productStock");
-                headerRow.createCell(8).setCellValue("--");
-                headerRow.createCell(9).setCellValue("1-unitType");
-                headerRow.createCell(10).setCellValue("1-unitDescription");
-                headerRow.createCell(11).setCellValue("1-quantityInBaseUnit");
-                headerRow.createCell(12).setCellValue("1-unitRegularPrice");
-                headerRow.createCell(13).setCellValue("1-unitSalePrice");
-                headerRow.createCell(14).setCellValue("1-unitBuyPrice");
+                headerRow.createCell(8).setCellValue("productTax");
+                headerRow.createCell(9).setCellValue("productBrand");
 
-                headerRow.createCell(15).setCellValue("2-unitType");
-                headerRow.createCell(16).setCellValue("2-unitDescription");
-                headerRow.createCell(17).setCellValue("2-quantityInBaseUnit");
-                headerRow.createCell(18).setCellValue("2-unitRegularPrice");
-                headerRow.createCell(19).setCellValue("2-unitSalePrice");
-                headerRow.createCell(20).setCellValue("2-unitBuyPrice");
+                headerRow.createCell(10).setCellValue("--");
+                headerRow.createCell(11).setCellValue("1-unitType");
+                headerRow.createCell(12).setCellValue("1-unitDescription");
+                headerRow.createCell(13).setCellValue("1-quantityInBaseUnit");
+                headerRow.createCell(14).setCellValue("1-unitRegularPrice");
+                headerRow.createCell(15).setCellValue("1-unitSalePrice");
+                headerRow.createCell(16).setCellValue("1-unitBuyPrice");
 
-                headerRow.createCell(21).setCellValue("3-unitType");
-                headerRow.createCell(22).setCellValue("3-unitDescription");
-                headerRow.createCell(23).setCellValue("3-quantityInBaseUnit");
-                headerRow.createCell(24).setCellValue("3-unitRegularPrice");
-                headerRow.createCell(25).setCellValue("3-unitSalePrice");
-                headerRow.createCell(26).setCellValue("3-unitBuyPrice");
+                headerRow.createCell(17).setCellValue("2-unitType");
+                headerRow.createCell(18).setCellValue("2-unitDescription");
+                headerRow.createCell(19).setCellValue("2-quantityInBaseUnit");
+                headerRow.createCell(20).setCellValue("2-unitRegularPrice");
+                headerRow.createCell(21).setCellValue("2-unitSalePrice");
+                headerRow.createCell(22).setCellValue("2-unitBuyPrice");
+
+                headerRow.createCell(23).setCellValue("3-unitType");
+                headerRow.createCell(24).setCellValue("3-unitDescription");
+                headerRow.createCell(25).setCellValue("3-quantityInBaseUnit");
+                headerRow.createCell(26).setCellValue("3-unitRegularPrice");
+                headerRow.createCell(27).setCellValue("3-unitSalePrice");
+                headerRow.createCell(28).setCellValue("3-unitBuyPrice");
 
                 // Set style for header
                 headerRow.getCell(0).setCellStyle(headerStyle);
@@ -254,18 +269,20 @@ public class ProductService {
                    for(ModelProducts product : products){
                        Row row = sheet.createRow(index);
                        row.createCell(0).setCellValue(product.getSKU());
-                       row.createCell(1).setCellValue(product.getWPID());
+                       row.createCell(1).setCellValue(product.getWP_ID());
                        row.createCell(2).setCellValue(product.getProductName());
                        row.createCell(3).setCellValue(product.getProductNameVN());
                        row.createCell(4).setCellValue(product.getProductDescription());
                        row.createCell(5).setCellValue(product.getProductShortDescription());
                        row.createCell(6).setCellValue(product.getProductImageUrl());
                        row.createCell(7).setCellValue(product.getProductStock());
-                       row.createCell(8).setCellValue("units");
+                       row.createCell(8).setCellValue(product.getProductTax());
+                       row.createCell(9).setCellValue(product.getProductBrand());
+                       row.createCell(10).setCellValue("units");
 
                        List<ModelUnit> unitList = product.getUnits();
                        if(!unitList.isEmpty()){
-                           int columnIndex = 9;
+                           int columnIndex = 11;
                            for(int j = 0; j < unitList.size(); j++){
                                ModelUnit unit = unitList.get(j);
                                row.createCell(columnIndex++).setCellValue(unit.getUnitType());

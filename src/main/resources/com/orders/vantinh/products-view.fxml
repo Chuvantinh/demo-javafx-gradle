@@ -24,16 +24,19 @@
             </items>
         </ToolBar>
 
-        <TableView fx:id="tableView" layoutX="14.0" layoutY="157.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="375.0" prefWidth="561.0">
+        <TableView fx:id="tableView" layoutX="14.0" layoutY="157.0" maxHeight="-Infinity" maxWidth="-Infinity">
             <columns>
                 <TableColumn fx:id="ID" prefWidth="28.0" text="ID" />
                 <TableColumn fx:id="productImageUrl" prefWidth="28.0" text="productImageUrl" />
+                <TableColumn fx:id="WP_ID" prefWidth="28.0" text="WP_ID" />
                 <TableColumn fx:id="SKU" prefWidth="28.0" text="SKU" />
                 <TableColumn fx:id="productName" prefWidth="198.0" text="Name" />
                 <TableColumn fx:id="productNameVN" prefWidth="75.0" text="Name VN" />
                 <TableColumn fx:id="productDescription" prefWidth="75.0" text="productDescription" />
                 <TableColumn fx:id="productShortDescription" prefWidth="28.0" text="productShortDescription" />
                 <TableColumn fx:id="productStock" prefWidth="28.0" text="Stock" />
+                <TableColumn fx:id="productTax" prefWidth="28.0" text="Tax" />
+                <TableColumn fx:id="productBrand" prefWidth="28.0" text="Brand" />
                 <TableColumn fx:id="productUnits" prefWidth="28.0" text="Units" />
             </columns>
             <columnResizePolicy>

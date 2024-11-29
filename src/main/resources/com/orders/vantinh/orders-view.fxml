@@ -13,7 +13,7 @@
          </font>
       </Label>
 
-       <ToolBar fx:id="fxOrderToolbar" accessibleRole="BUTTON" layoutX="223.0" layoutY="64.0" prefHeight="70.0" prefWidth="563.0" AnchorPane.topAnchor="64.0">
+       <ToolBar fx:id="fxOrderToolbar" accessibleRole="BUTTON" layoutX="223.0" layoutY="64.0" orientation="VERTICAL" prefHeight="70.0" prefWidth="563.0" AnchorPane.topAnchor="64.0">
            <items>
                <Button fx:id="btnComeBack" mnemonicParsing="false" onAction="#ActionBack" text="Back" />
                <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#ActionLoad" text="Load Data" />

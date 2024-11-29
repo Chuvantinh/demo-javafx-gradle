@@ -42,6 +42,9 @@ public class Products  extends AbstractTableController<ModelProducts> {
     private TableColumn<ModelProducts, String> SKU;
 
     @FXML
+    private TableColumn<ModelProducts, Integer> WP_ID;
+
+    @FXML
     private TableColumn<ModelProducts, String> productName;
 
     @FXML
@@ -55,6 +58,12 @@ public class Products  extends AbstractTableController<ModelProducts> {
 
     @FXML
     private TableColumn<ModelProducts, Double> productStock;
+
+    @FXML
+    private TableColumn<ModelProducts, Integer> productTax;
+
+    @FXML
+    private TableColumn<ModelProducts, String> productBrand;
 
     @FXML
     private TableColumn<ModelProducts, String> productImageUrl;
@@ -84,7 +93,6 @@ public class Products  extends AbstractTableController<ModelProducts> {
 
         setReponsiveColumnWidth();
 
-
         // Reference to MongoDB database
         MongoCollection<Document> mongoCollectionDocument = DBConnection.getCollection("javafx-order-management", "products");
         MongoCursor<Document> cursor = mongoCollectionDocument.find().iterator();
@@ -95,8 +103,8 @@ public class Products  extends AbstractTableController<ModelProducts> {
                 Document doc = cursor.next();
 
                 ObjectId ID = doc.getObjectId("_id");
-                String SKU = String.valueOf(doc.getDouble("SKU"));
-                String WPID = String.valueOf(doc.getDouble("WPID"));
+                String SKU = doc.getString("SKU");
+                int WP_ID = doc.getInteger("WP_ID", 0);
 
                 String productName = doc.getString("productName");
                 String productNameVN = doc.getString("productNameVN");
@@ -104,11 +112,15 @@ public class Products  extends AbstractTableController<ModelProducts> {
                 String productShortDescription = doc.getString("productShortDescription");
                 String productImageUrl = doc.getString("productImageUrl");
                 double productStock = doc.getDouble("productStock");
+                Integer productTax = doc.getInteger("productTax");
+                String productBrand = doc.getString("productBrand");
 
                 List<Document> productUnits = doc.getList("units", Document.class);
                 List<ModelUnit> unitsList = ProductService.convertToModelUnits(productUnits);
 
-                products.add(new ModelProducts( ID, SKU, WPID, productName, productNameVN, productDescription, productShortDescription, productImageUrl, productStock, unitsList));
+                products.add(new ModelProducts( ID, SKU, WP_ID, productName, productNameVN, productDescription, productShortDescription, productImageUrl,
+                        productStock, productTax, productBrand,
+                        unitsList));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -132,12 +144,16 @@ public class Products  extends AbstractTableController<ModelProducts> {
         productImageUrl.setCellFactory(param -> new ImageCell<>());
 
         SKU.setCellValueFactory(new PropertyValueFactory<ModelProducts, String>("SKU"));
+        WP_ID.setCellValueFactory(new PropertyValueFactory<ModelProducts, Integer>("WP_ID"));
+
         productName.setCellValueFactory(new PropertyValueFactory<ModelProducts, String>("productName"));
         productNameVN.setCellValueFactory(new PropertyValueFactory<ModelProducts, String>("productNameVN"));
 
         productDescription.setCellValueFactory(new PropertyValueFactory<ModelProducts, String>("productDescription"));
         productShortDescription.setCellValueFactory(new PropertyValueFactory<ModelProducts, String>("productShortDescription"));
         productStock.setCellValueFactory(new PropertyValueFactory<ModelProducts, Double>("productStock"));
+        productTax.setCellValueFactory(new PropertyValueFactory<ModelProducts, Integer>("productTax"));
+        productBrand.setCellValueFactory(new PropertyValueFactory<ModelProducts, String>("productBrand"));
 
         // Units column displaying the formatted string
         productUnits.setCellValueFactory(cellData -> {
@@ -146,7 +162,6 @@ public class Products  extends AbstractTableController<ModelProducts> {
 
     }
 
-    // Action for Order TableView
     @FXML
     private void ActionLoad(ActionEvent event) {
         tableView.refresh();
@@ -154,17 +169,15 @@ public class Products  extends AbstractTableController<ModelProducts> {
 
     @FXML
     private void ActionNew(ActionEvent event) {
-        loadView("main-view");
+        loadView("/com/orders/vantinh/productFormNew.fxml");
     }
 
     @FXML
     private void ActionEdit(ActionEvent event) {
-        loadView("main-view");
     }
 
     @FXML
     private void ActionRemove(ActionEvent event) {
-        loadView("main-view");
     }
 
     @FXML

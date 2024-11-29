@@ -2,7 +2,11 @@ package com.orders.vantinh.controllers.Abstract;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public abstract class AbstractTableController<T> {
     protected TableView<T> tableViewAbs;
@@ -27,6 +31,14 @@ public abstract class AbstractTableController<T> {
     protected void loadView(String fxmlFile){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+
+            Scene newScene = new Scene(root);
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Add New Item");
+            newStage.setScene(newScene);
+            newStage.show();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
