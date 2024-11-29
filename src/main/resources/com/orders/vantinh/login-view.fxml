@@ -19,7 +19,7 @@
          <children>
             <ImageView fitHeight="82.0" fitWidth="180.0" layoutX="12.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/botiss-logo.png" />
+                  <Image url="@../../../../../../images/botiss-logo.png" />
                </image>
             </ImageView>
          </children>

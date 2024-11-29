@@ -1,5 +1,6 @@
 package com.orders.vantinh.services;
 
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.orders.vantinh.dao.DBConnection;
 import com.orders.vantinh.models.ModelProducts;
@@ -25,9 +26,6 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.nio.file.Path.*;
-import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
-
 public class ProductService {
     MongoCollection<Document> productCollection = DBConnection.getCollection("javafx-order-management", "products");
 
@@ -50,7 +48,7 @@ public class ProductService {
 
             List<ModelUnit> modelUnitList = convertToModelUnits(unitList);
 
-            return new ModelProducts(ID, SKU, WPID, productName, productNameVN,
+            return new ModelProducts( SKU, WPID, productName, productNameVN,
                     productDescription, productShortDescription, productImageUrl, productStock,productTax, productBrand, modelUnitList);
         }else {
             return null;
@@ -288,7 +286,7 @@ public class ProductService {
                                row.createCell(columnIndex++).setCellValue(unit.getUnitType());
                                row.createCell(columnIndex++).setCellValue(unit.getUnitDescription());
                                row.createCell(columnIndex++).setCellValue(unit.getQuantityInBaseUnit());
-                               row.createCell(columnIndex++).setCellValue(unit.getUnitRegularPricePrice());
+                               row.createCell(columnIndex++).setCellValue(unit.getUnitRegularPrice());
                                row.createCell(columnIndex++).setCellValue(unit.getUnitSalePrice());
                                row.createCell(columnIndex++).setCellValue(unit.getUnitBuyPrice());
                            }
@@ -315,5 +313,42 @@ public class ProductService {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public ModelProducts newProduct( ModelProducts product){
+        Document productDoc = new Document()
+                .append("SKU", product.getSKU())
+                .append("WPID", product.getWP_ID())
+                .append("productName", product.getProductName())
+                .append("productNameVN", product.getProductNameVN())
+                .append("productDescription", product.getProductDescription())
+                .append("productShortDescription", product.getProductShortDescription())
+                .append("productImageUrl", product.getProductImageUrl())
+                .append("productStock", product.getProductStock())
+                .append("productTax", product.getProductTax())
+                .append("units", product.getUnits())
+                ;
+        // Add units as an array of sub-documents
+        List<Document> unitDocs = new ArrayList<>();
+        for (ModelUnit unit : product.getUnits()) {
+            Document unitDoc = new Document()
+                    .append("unitType", unit.getUnitType())
+                    .append("unitDescription", unit.getUnitDescription())
+                    .append("quantityInBaseUnit", unit.getQuantityInBaseUnit())
+                    .append("unitRegularPrice", unit.getUnitRegularPrice())
+                    .append("unitSalePrice", unit.getUnitSalePrice())
+                    .append("unitBuyPrice", unit.getUnitBuyPrice());
+            unitDocs.add(unitDoc);
+        }
+        productDoc.append("units", unitDocs);
+
+        try{
+            productCollection.insertOne(productDoc);
+            System.out.println("Product saved successfully");
+        }catch ( MongoException e){
+            System.out.println("Fail to save a product" + e);
+        }
+
+        return product;
     }
 }

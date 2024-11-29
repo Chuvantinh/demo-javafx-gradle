@@ -27,29 +27,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Orders extends AbstractTableController<ModelOrders> implements TableViewConfigurable<ModelOrders> {
-    @FXML
-    private TableView<ModelOrders> tableView;
+    @FXML private TableView<ModelOrders> tableView;
+    @FXML private Button btnComeback;
 
-    @FXML
-    private Button btnComeback;
-
-    @FXML
-    private TableColumn<ModelOrders, String> orderID;
-
-    @FXML
-    private TableColumn<ModelOrders, String> orderDate;
-
-    @FXML
-    private TableColumn<ModelOrders, String> customerID;
-
-    @FXML
-    private TableColumn<ModelOrders, Double> orderAmount;
-
-    @FXML
-    private TableColumn<ModelOrders, String> orderPayment;
-
-    @FXML
-    private TableColumn<ModelOrders, String> orderStatus;
+    @FXML private TableColumn<ModelOrders, String> orderID;
+    @FXML private TableColumn<ModelOrders, String> orderDate;
+    @FXML private TableColumn<ModelOrders, String> customerID;
+    @FXML private TableColumn<ModelOrders, Double> orderAmount;
+    @FXML private TableColumn<ModelOrders, String> orderPayment;
+    @FXML private TableColumn<ModelOrders, String> orderStatus;
 
     // ObservableList to store the data for the TableView
     private final ObservableList<ModelOrders> orderList = FXCollections.observableArrayList();

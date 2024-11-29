@@ -28,7 +28,7 @@ public class ModelUnit {
     public Double getQuantityInBaseUnit() { return quantityInBaseUnit; }
     public void setQuantityInBaseUnit(Double quantityInBaseUnit) {this.quantityInBaseUnit = quantityInBaseUnit; }
 
-    public Double getUnitRegularPricePrice() {return unitRegularPrice;}
+    public Double getUnitRegularPrice() {return unitRegularPrice;}
     public void setUnitPrice(Double unitRegularPrice) { this.unitRegularPrice = unitRegularPrice; }
 
     public Double getUnitSalePrice() {return unitSalePrice;}

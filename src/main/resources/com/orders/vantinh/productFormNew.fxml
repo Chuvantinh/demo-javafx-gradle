@@ -11,6 +11,21 @@
            <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="50">
               <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="New Product Form" />
 
+               <!-- SKU Name -->
+               <HBox spacing="10">
+                   <HBox>
+                       <Label text="SKU" />
+                       <TextField fx:id="SKU" minHeight="40.0" minWidth="400.0" promptText="SKU" />
+                   </HBox>
+               </HBox>
+
+               <HBox spacing="10">
+                   <HBox>
+                       <Label text="WP_ID:" />
+                       <TextField fx:id="WP_ID" minHeight="40.0" minWidth="400.0" promptText="wordpress ID" />
+                   </HBox>
+               </HBox>
+
               <!-- Product Name -->
               <HBox spacing="10">
                   <HBox>
@@ -70,6 +85,18 @@
                    <VBox>
                        <Label text="Stock:" />
                        <TextField fx:id="productStock" promptText="Enter productStock" />
+                   </VBox>
+               </HBox>
+
+               <HBox spacing="10">
+                   <VBox>
+                       <Label text="Stock:" />
+                       <TextField fx:id="productTax" promptText="Enter Tax" />
+                   </VBox>
+
+                   <VBox>
+                       <Label text="Stock:" />
+                       <TextField fx:id="productBrand" promptText="Enter brand" />
                    </VBox>
                </HBox>
 

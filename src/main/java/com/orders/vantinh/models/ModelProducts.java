@@ -19,7 +19,7 @@ public class ModelProducts {
 
     private List<ModelUnit> units;
 
-    public ModelProducts(ObjectId ID, String SKU, Integer WP_ID, String productName, String productNameVN,
+    public ModelProducts( ObjectId ID, String SKU, Integer WP_ID, String productName, String productNameVN,
                          String productDescription, String productShortDescription,
                          String productImageUrl, double productStock, Integer productTax, String productBrand,
                          List<ModelUnit> units) {
@@ -36,6 +36,14 @@ public class ModelProducts {
         this.productBrand = productBrand;
 
         this.units = units;
+    }
+
+    public ModelProducts(String SKU, Integer WP_ID, String productName, String productNameVN,
+                         String productDescription, String productShortDescription,
+                         String productImageUrl, double productStock, Integer productTax, String productBrand,
+                         List<ModelUnit> units){
+        this(null, SKU, WP_ID, productName, productNameVN, productDescription, productShortDescription, productImageUrl
+        , productStock, productTax, productBrand, units);
     }
 
     public ObjectId getId() {return ID;}
@@ -78,7 +86,7 @@ public class ModelProducts {
             display.append("Type: ").append(unit.getUnitType())
                     .append(", Description: ").append(unit.getUnitDescription())
                     .append(", Qty: ").append(unit.getQuantityInBaseUnit())
-                    .append(", Regular Price: €").append(unit.getUnitRegularPricePrice());
+                    .append(", Regular Price: €").append(unit.getUnitRegularPrice());
             if (unit.getUnitSalePrice() != null) {
                 display.append(", Sale Price: €").append(unit.getUnitSalePrice());
             }

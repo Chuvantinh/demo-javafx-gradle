@@ -29,47 +29,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Products  extends AbstractTableController<ModelProducts> {
-    @FXML
-    private TableView<ModelProducts> tableView;
+    @FXML private TableView<ModelProducts> tableView;
+    @FXML private Button btnComeback;
 
-    @FXML
-    private Button btnComeback;
-
-    @FXML
-    private TableColumn<ModelProducts, String> ID;
-
-    @FXML
-    private TableColumn<ModelProducts, String> SKU;
-
-    @FXML
-    private TableColumn<ModelProducts, Integer> WP_ID;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productName;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productNameVN;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productDescription;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productShortDescription;
-
-    @FXML
-    private TableColumn<ModelProducts, Double> productStock;
-
-    @FXML
-    private TableColumn<ModelProducts, Integer> productTax;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productBrand;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productImageUrl;
-
-    @FXML
-    private TableColumn<ModelProducts, String> productUnits;
+    @FXML private TableColumn<ModelProducts, String> ID;
+    @FXML private TableColumn<ModelProducts, String> SKU;
+    @FXML private TableColumn<ModelProducts, Integer> WP_ID;
+    @FXML private TableColumn<ModelProducts, String> productName;
+    @FXML private TableColumn<ModelProducts, String> productNameVN;
+    @FXML private TableColumn<ModelProducts, String> productDescription;
+    @FXML private TableColumn<ModelProducts, String> productShortDescription;
+    @FXML private TableColumn<ModelProducts, Double> productStock;
+    @FXML private TableColumn<ModelProducts, Integer> productTax;
+    @FXML private TableColumn<ModelProducts, String> productBrand;
+    @FXML private TableColumn<ModelProducts, String> productImageUrl;
+    @FXML private TableColumn<ModelProducts, String> productUnits;
 
     ProductService productService = new ProductService();
 
@@ -170,10 +144,20 @@ public class Products  extends AbstractTableController<ModelProducts> {
     @FXML
     private void ActionNew(ActionEvent event) {
         loadView("/com/orders/vantinh/productFormNew.fxml");
+        tableView.refresh();
     }
 
     @FXML
     private void ActionEdit(ActionEvent event) {
+        loadView("/com/orders/vantinh/productFormNew.fxml");
+
+        ModelProducts selectedProduct = tableView.getSelectionModel().getSelectedItem();
+
+        ProductNew productNew = new ProductNew();
+        if(selectedProduct != null){
+            productNew.setProduct(selectedProduct);
+        }
+        tableView.refresh();
     }
 
     @FXML
