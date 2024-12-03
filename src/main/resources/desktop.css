@@ -51,3 +51,11 @@
 .table-view .table-cell{
     -fx-alignment: CENTER;
 }
+
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: darkblue;
+    -fx-border-color: darkblue;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+}

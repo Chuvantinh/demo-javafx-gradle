@@ -100,7 +100,7 @@ public class ProductService {
                 double productStock = row.getCell(12) != null ? row.getCell(12).getNumericCellValue() : 0;
 
                 int productTax = ( String.valueOf(row.getCell(19)).equals("reduzierter-preis"))  ? 7 : 19;
-                String productBrand = String.valueOf(row.getCell(13));
+                String productBrand = row.getCell(13).getStringCellValue();
 
                 if(!productName.isEmpty() && productName != null){
                     Document productDocument = new Document("SKU", SKU).
@@ -326,6 +326,7 @@ public class ProductService {
                 .append("productImageUrl", product.getProductImageUrl())
                 .append("productStock", product.getProductStock())
                 .append("productTax", product.getProductTax())
+                .append("productBrand", product.getProductBrand())
                 .append("units", product.getUnits())
                 ;
         // Add units as an array of sub-documents
